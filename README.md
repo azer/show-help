@@ -21,6 +21,8 @@ Will show the content of first found file from the [lookup paths](#lookup).
 
 * docs/man
 * bin/help.txt
+* bin/usage.txt
+* help.txt
 * usage.txt
 * README
 * README.md
