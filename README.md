@@ -1,6 +1,6 @@
 ## show-help
 
-Outputs help for parent package and exits
+Outputs help for parent package and exits. See Also: [show-version](http://github.com/azer/show-version)
 
 ## Install
 
