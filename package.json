@@ -1,0 +1,20 @@
+{
+  "name": "show-help",
+  "version": "0.0.0",
+  "description": "Outputs help for parent package and exits",
+  "main": "index.js",
+  "keywords": [
+    "help",
+    "man",
+    "commands"
+  ],
+  "repository": {
+    "url": "git@github.com:azer/show-help.git",
+    "type": "git"
+  },
+  "author": "azer",
+  "license": "BSD",
+  "dependencies": {
+    "first-val": "0.0.0"
+  }
+}
