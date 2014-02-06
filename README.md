@@ -11,7 +11,7 @@ $ npm install show-help
 ## Usage
 
 ```js
-if(argv.help) require('show-help')
+if(argv.help) require('show-help')();
 ```
 
 Will show the content of first found file from the [lookup paths](#lookup).
