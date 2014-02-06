@@ -1,53 +1,42 @@
-var firstVal = require("first-val"),
-    readFile = require('fs').readFileSync,
-    exists   = require("fs").existsSync,
-    puts     = require('util').puts,
-    join     = require('path').join,
-    lookup   = require('./lookup');
+var firstVal = require("first-val");
+var puts = require('util').puts;
+var join = require('path').join;
+var lookup = require('./lookup');
+
+var fs = require('fs');
+var readFile = fs.readFileSync;
+var exists  = fs.existsSync;
 
 module.exports = showHelp;
 
-function findFilename(){
-  var result;
+function findFilename (dir) {
+  var i = -1;
+  var len = lookup.length;
+  var filename;
 
-  lookup
-    .map(function(filename){
-      return join(__dirname, '../../', filename);
-    })
-    .some(function(filename){
-      if(!exists(filename)) return false;
-
-      result = filename;
-      return true;
-    });
-
-  return result;
+  while (++i < len) {
+    filename = join(__dirname, dir || '', '../../', lookup[i]);
+    if (!exists(filename)) continue;
+    return filename;
+  }
 }
 
-function format(content){
-  content = content
-    .split('\n')
-    .map(function(line){
-      return '  ' + line;
-    })
-    .join('\n');
-
+function format (content) {
+  content = content.split('\n').map(tab).join('\n');
   return '\n' + content;
 }
 
-function man(){
+function tab (line) {
+  return '  ' + line;
+}
+
+function man (dir) {
   var filename;
-
-  if( ! ( filename = findFilename() ) ) return '';
-
+  if (!(filename = findFilename(dir))) return '';
   return format(readFile(filename).toString());
 }
 
-function showHelp(){
-  process.stdout.write('\u001B[2J\u001B[0;0f');
-
-  puts(man());
+function showHelp (dir) {
+  puts(man(dir));
   process.exit();
 }
-
-showHelp();
