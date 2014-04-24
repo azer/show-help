@@ -16,16 +16,13 @@ if(argv.help) require('show-help')();
 
 Will show the content of first found file from the [lookup paths](#lookup).
 
-<a name="lookup"></a>
-## Lookup Paths
+## Options
 
-* docs/man
-* bin/help.txt
-* bin/usage.txt
-* help.txt
-* usage.txt
-* README
-* README.md
-* README.markdown
+```js
+require('show-help')({
+  filename: 'doc.md',
+  transform: parseMarkdown
+});
+```
 
 ![](https://dl.dropboxusercontent.com/s/ctqwvswr8l2fn7m/npmel_26.jpg)

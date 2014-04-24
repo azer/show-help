@@ -8,10 +8,10 @@ var exists  = fs.existsSync;
 
 module.exports = showHelp;
 
-function findFilename (parentFilename) {
+function findFilename (options) {
   var i = -1;
   var len = lookup.length;
-  var root = packagePath(parentFilename || module.parent.filename);
+  var root = packagePath(options.parentFilename || module.parent.filename);
   var filename;
 
   while (++i < len) {
@@ -30,17 +30,24 @@ function tab (line) {
   return '  ' + line;
 }
 
-function man (dir) {
-  var filename;
-  if (!(filename = findFilename(dir))) return '';
-  return format(read(filename));
+function man (options) {
+  if (!options.filename) {
+    options.filename = findFilename(options);
+  }
+
+  if (!options.filename) return '';
+
+  return format(read(options.filename));
 }
 
 function read (filename) {
   return readFile(filename).toString();
 }
 
-function showHelp (dir, transform) {
-  console.log(!transform ? man(dir) : transform(man(dir)));
+function showHelp (options) {
+  typeof options == 'string' && (options = { filename: options });
+  options || (options = {});
+
+  console.log(!options.transform ? man(options) : options.transform(man(options)));
   process.exit();
 }
