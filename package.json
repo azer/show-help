@@ -1,6 +1,6 @@
 {
   "name": "show-help",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Outputs help for parent package and exits",
   "main": "index.js",
   "keywords": [
@@ -15,6 +15,6 @@
   "author": "azer",
   "license": "BSD",
   "dependencies": {
-    "first-val": "0.0.0"
+    "package-path": "0.0.x"
   }
 }

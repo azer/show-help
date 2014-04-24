@@ -1,6 +1,5 @@
-var firstVal = require("first-val");
-var puts = require('util').puts;
-var join = require('path').join;
+var path = require('path');
+var packagePath = require("package-path").sync;
 var lookup = require('./lookup');
 
 var fs = require('fs');
@@ -9,13 +8,14 @@ var exists  = fs.existsSync;
 
 module.exports = showHelp;
 
-function findFilename (dir) {
+function findFilename (parentFilename) {
   var i = -1;
   var len = lookup.length;
+  var root = packagePath(parentFilename || module.parent.filename);
   var filename;
 
   while (++i < len) {
-    filename = join(__dirname, dir || '', '../../', lookup[i]);
+    filename = path.join(root, lookup[i]);
     if (!exists(filename)) continue;
     return filename;
   }
@@ -33,10 +33,14 @@ function tab (line) {
 function man (dir) {
   var filename;
   if (!(filename = findFilename(dir))) return '';
-  return format(readFile(filename).toString());
+  return format(read(filename));
 }
 
-function showHelp (dir) {
-  puts(man(dir));
+function read (filename) {
+  return readFile(filename).toString();
+}
+
+function showHelp (dir, transform) {
+  console.log(!transform ? man(dir) : transform(man(dir)));
   process.exit();
 }
