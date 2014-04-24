@@ -1,6 +1,6 @@
 {
   "name": "show-help",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Outputs help for parent package and exits",
   "main": "index.js",
   "keywords": [
